@@ -1,5 +1,5 @@
 " ==========================================================================
-" $Id: changesqlcase.vim,v 1.1 2003/12/31 17:20:52 culley Exp culley $
+" $Id: changesqlcase.vim,v 1.2 2003/12/31 21:30:24 culley Exp culley $
 " ==========================================================================
 "
 " Description:
@@ -28,11 +28,12 @@
 "
 " vmap <leader>uc  :call ChangeSqlCase()<cr>
 "
-" The replacement confirmation flag is set by default.
-"
 " Customization:
-" 1. delete any keywords that cause you grief.
-" 2. add any keywords that are missing for your database
+" 1. Add the confirmation flag to the substitution if you are mostly doing
+" single lines.  If you turn on confirmation on a multi-line visual selection
+" you will need to cancel out of the confirmation for each line.
+" 2. delete any keywords that cause you grief.
+" 3. add any keywords that are missing for your database
 "
 " Todo:
 " 1. This script could be modified to accept a database variable that altered
@@ -52,7 +53,7 @@
 "
 " test="select * from example" { dont update me }
 " 
-" the word 'update' after the end quote will also change case.
+" the word 'update' after the end quote will also change case.  
 "
 " Contact:
 " Culley Harrelson 
@@ -71,7 +72,7 @@ function! ChangeSqlCase()
 "
 " The substitution:
 "
-" \U\2\E/gie
+" \U\2\E/giec
 "
 :'<,'>s/\(\_^\|\W\)\@<=\(
 	\abort\|
@@ -605,7 +606,7 @@ function! ChangeSqlCase()
 	\write\|
 	\year\|
 	\zone
-    \\)\(\W\|\_$\)\@=/\U\2\E/giec
+    \\)\(\W\|\_$\)\@=/\U\2\E/gie
 
 " Removed:
 "    \sql\| ===== this was changing the case of my variable name...
