@@ -1,0 +1,55 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=869
+
+Description:
+This plugin is a function that wraps around a big substitution expression.
+The goal is to be able up upper case sql keywords from a visual selection.
+It is quite similar to this script:
+
+http://www.vim.org/scripts/script.php?script_id=305
+
+which uses insert mode abbreviations to capitalize as you type.  My script
+will be useful if you need to clean up existing scripts or if you are
+programming in another language and want to format sql inside of a string
+variable.  
+
+The sql keyword list is taken from the postgresql 7.4 docs:
+
+http://www.postgresql.org/docs/current/static/sql-keywords-appendix.html#KEYWORDS-TABLE
+
+Please send a patch to include keywords specific to the database you are
+working with.
+
+Installation:
+
+Place this script in your ~/.vim/plugin/ directory or source from your vimrc
+file. To use the script create a visual map:
+
+vmap <leader>uc  :call ChangeSqlCase()<cr>
+
+Customization:
+1. Add the confirmation flag to the substitution if you are mostly doing
+single lines.  If you turn on confirmation on a multi-line visual selection
+you will need to cancel out of the confirmation for each line.
+2. delete any keywords that cause you grief.
+3. add any keywords that are missing for your database
+
+Todo:
+1. This script could be modified to accept a database variable that altered
+the keyword list.
+2. lowercase as well as uppercase
+
+Bugs:
+
+As noted in the vim manual |10.3|:
+
+   When using Visual mode to select part of a line, or using CTRL-V to
+  select a block of text, the colon commands will still apply to whole
+  lines.  This might change in a future version of Vim.
+
+So if you select just the string in side of the quotes in the following
+example:
+
+test="select * from example" { dont update me }
+
+the word 'update' after the end quote will also change case.  
+
